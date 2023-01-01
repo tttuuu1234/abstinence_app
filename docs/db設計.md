@@ -1,0 +1,9 @@
+## users
+- nickname:ニックネーム、string
+- age:年齢、int
+- targetAbstinenceTime:目標禁欲時間、timestamp
+- abstinenceTime:禁欲時間、timestamp
+- enthusiasm:意気込み、string
+- createdAt:作成日timestamp
+- updatedAt:更新日、timestamp
+- deletedAt:削除日、論理削除
