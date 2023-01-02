@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "702247225876",
+    "project_id": "abstinence-app-dev",
+    "storage_bucket": "abstinence-app-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702247225876:android:7a9f051a3b46e89f743501",
+        "android_client_info": {
+          "package_name": "com.abstinence.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702247225876-acno4kkpbb6of96foq53484d57lkghv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2ia7eK6V5Dlq2OCxtEksVcuZ-0Zu8Ezs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702247225876-acno4kkpbb6of96foq53484d57lkghv0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "702247225876-g6i0egvho2oidm9on0lfo9nnlk5g945k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.abstinence.app.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
