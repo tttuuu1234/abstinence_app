@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   const flavor = String.fromEnvironment('FLAVOR');
+  final packageInfo = await PackageInfo.fromPlatform();
+  print('---App情報---');
   print(flavor);
+  print(packageInfo.appName);
+  print(packageInfo.packageName);
+  print(packageInfo.version);
+  print(packageInfo.buildNumber);
+  print('------------');
   runApp(const MyApp());
 }
 
