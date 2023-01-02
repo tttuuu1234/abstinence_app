@@ -33,5 +33,7 @@ Runner/GeneratedPluginRegistrant.*
 !default.pbxuser
 !default.perspectivev3
 
-+ **/ios/Flutter/DartDefines.xcconfig
-+ **/ios/GoogleService-Info.plist
+**/ios/Flutter/DartDefines.xcconfig
+**/ios/GoogleService-Info.plist
+**/ios/dev/GoogleService-Info.plist
+**/ios/prod/GoogleService-Info.plist
