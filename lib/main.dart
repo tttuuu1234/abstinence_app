@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 void main() {
+  const flavor = String.fromEnvironment('FLAVOR');
+  print(flavor);
   runApp(const MyApp());
 }
 
