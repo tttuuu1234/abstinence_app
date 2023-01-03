@@ -1,3 +1,4 @@
+import 'package:abstinence_app/presentation/pages/sign_up/page.dart';
 import 'package:abstinence_app/presentation/styles/colors.dart';
 import 'package:abstinence_app/presentation/styles/margin.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,13 @@ class RootPage extends StatelessWidget {
                 children: [
                   PrimaryButton(
                     title: '新規登録',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ),
+                      );
+                    },
                   ),
                   AppVerticalMargin.small,
                   TextButton(
