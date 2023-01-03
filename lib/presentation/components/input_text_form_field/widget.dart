@@ -7,23 +7,28 @@ class InputTextFormFiled extends StatelessWidget {
   const InputTextFormFiled({
     Key? key,
     required this.textEditingController,
+    this.readOnly = false,
+    this.textInputAction = TextInputAction.next,
     this.label,
     this.hintText,
     this.onChanged,
-    this.onSubmitted,
+    this.onTap,
   }) : super(key: key);
 
   final TextEditingController textEditingController;
+  final bool readOnly;
+  final TextInputAction textInputAction;
   final Widget? label;
   final String? hintText;
   final Function(String value)? onChanged;
-  final Function(String value)? onSubmitted;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: textEditingController,
-      textInputAction: TextInputAction.next,
+      textInputAction: textInputAction,
+      readOnly: readOnly,
       decoration: InputDecoration(
         label: label,
         hintText: hintText,
@@ -35,7 +40,7 @@ class InputTextFormFiled extends StatelessWidget {
         ),
       ),
       onChanged: onChanged,
-      onSubmitted: onSubmitted,
+      onTap: onTap,
     );
   }
 }
