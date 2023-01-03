@@ -1,5 +1,6 @@
 import 'package:abstinence_app/presentation/components/hint_text.dart';
 import 'package:abstinence_app/presentation/components/multi_input_text_form_field/widget.dart';
+import 'package:abstinence_app/presentation/pages/home/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,9 +37,9 @@ class EnthusiasmRegisterPage extends ConsumerWidget {
               PrimaryButton(
                 title: 'プロフィール登録',
                 onPressed: () async {
-                  await NavigatorService.push<EnthusiasmRegisterPage>(
+                  await NavigatorService.push<HomePage>(
                     context: context,
-                    page: const EnthusiasmRegisterPage(),
+                    page: const HomePage(),
                   );
                 },
               ),
