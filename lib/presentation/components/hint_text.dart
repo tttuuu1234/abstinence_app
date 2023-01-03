@@ -5,4 +5,5 @@ class HintText {
   static const email = 'xxx@yyy.com';
   static const password = 'パスワードを入力してください';
   static const nickname = '禁！欲！マン';
+  static const age = '24';
 }
