@@ -22,37 +22,39 @@ class ProfileRegisterPage extends ConsumerWidget {
       ),
       body: Padding(
         padding: AppPadding.smallAll,
-        child: Column(
-          children: [
-            InputTextFormFiled(
-              textEditingController: TextEditingController(),
-              label: const Text('ニックネーム'),
-              hintText: HintText.nickname,
-            ),
-            AppVerticalMargin.xLarge,
-            Builder(
-              builder: (context) {
-                return InputTextFormFiled(
-                  textEditingController: TextEditingController(),
-                  label: const Text('年齢'),
-                  hintText: HintText.age,
-                  onTap: () {
-                    _showSelectAgeBottomSheet(context);
-                  },
-                );
-              },
-            ),
-            AppVerticalMargin.xLarge,
-            PrimaryButton(
-              title: 'プロフィール登録',
-              onPressed: () async {
-                await NavigatorService.push<EnthusiasmRegisterPage>(
-                  context: context,
-                  page: const EnthusiasmRegisterPage(),
-                );
-              },
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              InputTextFormFiled(
+                textEditingController: TextEditingController(),
+                label: const Text('ニックネーム'),
+                hintText: HintText.nickname,
+              ),
+              AppVerticalMargin.xLarge,
+              Builder(
+                builder: (context) {
+                  return InputTextFormFiled(
+                    textEditingController: TextEditingController(),
+                    label: const Text('年齢'),
+                    hintText: HintText.age,
+                    onTap: () {
+                      _showSelectAgeBottomSheet(context);
+                    },
+                  );
+                },
+              ),
+              AppVerticalMargin.xLarge,
+              PrimaryButton(
+                title: '次へ',
+                onPressed: () async {
+                  await NavigatorService.push<EnthusiasmRegisterPage>(
+                    context: context,
+                    page: const EnthusiasmRegisterPage(),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
