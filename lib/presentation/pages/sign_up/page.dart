@@ -1,13 +1,8 @@
-import 'package:abstinence_app/presentation/components/hint_text.dart';
-import 'package:abstinence_app/presentation/components/primary_button/widget.dart';
-import 'package:abstinence_app/presentation/pages/profile_register/page.dart';
-import 'package:abstinence_app/presentation/services/navigator.dart';
-import 'package:abstinence_app/presentation/styles/margin.dart';
-import 'package:abstinence_app/presentation/styles/padding.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import '../../../importer.dart';
+import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
+import '../../components/primary_button/widget.dart';
+import '../profile_register/page.dart';
 
 /// 新規登録画面
 class SignUpPage extends ConsumerWidget {

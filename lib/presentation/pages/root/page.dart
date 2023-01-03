@@ -1,10 +1,8 @@
-import 'package:abstinence_app/presentation/pages/sign_up/page.dart';
-import 'package:abstinence_app/presentation/services/navigator.dart';
-import 'package:abstinence_app/presentation/styles/colors.dart';
-import 'package:abstinence_app/presentation/styles/margin.dart';
-import 'package:flutter/material.dart';
+import '../sign_up/page.dart';
 
+import '../../../importer.dart';
 import '../../components/primary_button/widget.dart';
+
 
 /// ルート画面
 class RootPage extends StatelessWidget {
