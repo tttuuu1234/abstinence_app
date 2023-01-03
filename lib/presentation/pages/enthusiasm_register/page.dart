@@ -1,13 +1,9 @@
-import 'package:abstinence_app/presentation/components/hint_text.dart';
-import 'package:abstinence_app/presentation/components/multi_input_text_form_field/widget.dart';
-import 'package:abstinence_app/presentation/pages/home/widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../components/hint_text.dart';
+import '../../components/multi_input_text_form_field/widget.dart';
+import '../home/widget.dart';
 
+import '../../../importer.dart';
 import '../../components/primary_button/widget.dart';
-import '../../services/navigator.dart';
-import '../../styles/margin.dart';
-import '../../styles/padding.dart';
 
 /// 意気込み登録画面
 class EnthusiasmRegisterPage extends ConsumerWidget {

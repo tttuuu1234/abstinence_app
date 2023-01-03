@@ -1,5 +1,5 @@
-import 'package:abstinence_app/presentation/pages/root/page.dart';
-import 'package:abstinence_app/presentation/styles/colors.dart';
+import 'presentation/pages/root/page.dart';
+import 'presentation/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 

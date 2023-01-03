@@ -1,7 +1,7 @@
-import 'package:abstinence_app/presentation/styles/padding.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/colors.dart';
+import '../../styles/padding.dart';
 
 /// 複数入力filed(バリデーション可能)
 class MultiInputTextFormFiled extends StatelessWidget {

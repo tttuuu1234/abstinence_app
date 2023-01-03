@@ -1,14 +1,9 @@
-import 'package:abstinence_app/presentation/pages/enthusiasm_register/page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../enthusiasm_register/page.dart';
 
+import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
-import '../../services/navigator.dart';
-import '../../styles/margin.dart';
-import '../../styles/padding.dart';
-import '../../extension/context.dart';
 
 /// プロフィール登録画面
 class ProfileRegisterPage extends ConsumerWidget {
