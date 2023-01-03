@@ -1,4 +1,5 @@
 import 'package:abstinence_app/presentation/pages/root/page.dart';
+import 'package:abstinence_app/presentation/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -26,6 +27,12 @@ class App extends StatelessWidget {
       title: '禁！欲！',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: AppColor.white,
+        appBarTheme: const AppBarTheme().copyWith(
+          foregroundColor: AppColor.black,
+          backgroundColor: AppColor.white,
+          elevation: 0,
+        ),
       ),
       home: const RootPage(),
     );
