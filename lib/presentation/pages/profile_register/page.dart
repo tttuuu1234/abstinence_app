@@ -1,9 +1,8 @@
-import '../enthusiasm_register/page.dart';
-
 import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
+import '../enthusiasm_register/page.dart';
 
 /// プロフィール登録画面
 class ProfileRegisterPage extends ConsumerWidget {

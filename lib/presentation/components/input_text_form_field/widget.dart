@@ -1,3 +1,4 @@
+import '../../validator/validator.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/colors.dart';
@@ -6,29 +7,33 @@ import '../../styles/colors.dart';
 class InputTextFormFiled extends StatelessWidget {
   const InputTextFormFiled({
     Key? key,
-    required this.textEditingController,
+    this.textEditingController,
     this.readOnly = false,
     this.textInputAction = TextInputAction.next,
+    this.maxLength = 10,
+    this.validateRules,
     this.label,
     this.hintText,
     this.onChanged,
     this.onTap,
   }) : super(key: key);
 
-  final TextEditingController textEditingController;
+  final TextEditingController? textEditingController;
   final bool readOnly;
   final TextInputAction textInputAction;
   final Widget? label;
   final String? hintText;
+  final int? maxLength;
+  final List<Validator>? validateRules;
   final Function(String value)? onChanged;
   final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: textEditingController,
       textInputAction: textInputAction,
       readOnly: readOnly,
+      maxLength: maxLength,
       decoration: InputDecoration(
         label: label,
         hintText: hintText,
@@ -39,6 +44,23 @@ class InputTextFormFiled extends StatelessWidget {
           ),
         ),
       ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) {
+        String? errorMessage;
+        final rules = validateRules;
+        if (rules == null) {
+          return null;
+        }
+
+        for (final rule in rules) {
+          if (rule.validate(value)) {
+            errorMessage = rule.getMessage();
+            break;
+          }
+        }
+
+        return errorMessage;
+      },
       onChanged: onChanged,
       onTap: onTap,
     );

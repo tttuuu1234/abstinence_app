@@ -1,4 +1,4 @@
-import '../sign_up/page.dart';
+import '../sign_up_input/page.dart';
 
 import '../../../importer.dart';
 import '../../components/primary_button/widget.dart';
@@ -24,9 +24,9 @@ class RootPage extends StatelessWidget {
                   PrimaryButton(
                     title: '新規登録',
                     onPressed: () async{
-                      await NavigatorService.push<SignUpPage>(
+                      await NavigatorService.push<SignUpInputPage>(
                         context: context,
-                        page: const SignUpPage(),
+                        page: const SignUpInputPage(),
                       );
                     },
                   ),
