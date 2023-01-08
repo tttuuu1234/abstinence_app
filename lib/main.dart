@@ -1,7 +1,7 @@
-import 'presentation/pages/root/page.dart';
-import 'presentation/styles/colors.dart';
-import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+import 'importer.dart';
+import 'presentation/pages/root/page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +15,11 @@ Future<void> main() async {
   print(packageInfo.version);
   print(packageInfo.buildNumber);
   print('------------');
-  runApp(const App());
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
 class App extends StatelessWidget {

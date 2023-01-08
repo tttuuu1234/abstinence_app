@@ -1,9 +1,8 @@
+import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/multi_input_text_form_field/widget.dart';
-import '../home/widget.dart';
-
-import '../../../importer.dart';
 import '../../components/primary_button/widget.dart';
+import '../home/widget.dart';
 
 /// 意気込み登録画面
 class EnthusiasmRegisterPage extends ConsumerWidget {
