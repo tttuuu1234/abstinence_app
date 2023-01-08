@@ -1,3 +1,5 @@
+import 'notifier.dart';
+
 import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
@@ -16,28 +18,28 @@ class SignUpInputPage extends ConsumerStatefulWidget {
 
 class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
   final formKey = GlobalKey<FormState>();
-  String email = '';
-  String password = '';
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
 
   @override
   void initState() {
+    emailController = TextEditingController(text: '');
+    passwordController = TextEditingController(text: '');
     super.initState();
   }
 
-  void setEmail(String value) {
-    setState(() {
-      email = value;
-    });
-  }
-
-  void setPassword(String value) {
-    setState(() {
-      password = value;
-    });
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(signUpInputProvider);
+    final notifier = ref.watch(signUpInputProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('新規登録'),
@@ -49,31 +51,39 @@ class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
           child: Column(
             children: [
               InputTextFormFiled(
+                textEditingController: emailController,
                 label: const Text('メールアドレス'),
                 hintText: HintText.email,
                 maxLength: 20,
                 validateRules: [
                   ValidatorControl.required(),
-                  ValidatorControl.maxLength(20)
                 ],
-                onChanged: setEmail,
+                onChanged: (value) {
+                  notifier
+                    ..setEmail(value)
+                    ..checkAllInputted();
+                },
               ),
               AppVerticalMargin.xLarge,
               InputTextFormFiled(
+                textEditingController: passwordController,
                 label: const Text('パスワード'),
                 hintText: HintText.password,
                 maxLength: 20,
                 validateRules: [
                   ValidatorControl.required(),
-                  ValidatorControl.maxLength(20)
+                  ValidatorControl.maxLength(),
                 ],
-                onChanged: setPassword,
+                onChanged: (value) {
+                  notifier
+                    ..setPassword(value)
+                    ..checkAllInputted();
+                },
               ),
               AppVerticalMargin.xLarge,
               PrimaryButton(
                 title: 'プロフィール入力へ',
-                onPressed: email.isNotEmpty &&
-                        password.isNotEmpty &&
+                onPressed: state.isALlInputted &&
                         formKey.currentState!.validate()
                     ? () async {
                         await NavigatorService.push<ProfileRegisterPage>(

@@ -31,6 +31,7 @@ class InputTextFormFiled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: textEditingController,
       textInputAction: textInputAction,
       readOnly: readOnly,
       maxLength: maxLength,
