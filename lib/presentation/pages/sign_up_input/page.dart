@@ -72,7 +72,6 @@ class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
                 maxLength: 20,
                 validateRules: [
                   ValidatorControl.required(),
-                  ValidatorControl.maxLength(),
                 ],
                 onChanged: (value) {
                   notifier
