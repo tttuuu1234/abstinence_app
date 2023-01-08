@@ -8,7 +8,7 @@ class MaxLengthValidator implements Validator<String?> {
   final int maxLength;
 
   @override
-  String getMessage() => ValidateMessage.maxLength(maxLength);
+  String getMessage() => ValidateMessage.max(maxLength);
 
   @override
   bool validate(value) {
