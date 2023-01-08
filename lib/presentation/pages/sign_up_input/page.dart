@@ -1,11 +1,10 @@
-import 'notifier.dart';
-
 import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
 import '../../validator/validator.dart';
 import '../profile_register/page.dart';
+import 'notifier.dart';
 
 /// 新規登録認証情報入力画面
 class SignUpInputPage extends ConsumerStatefulWidget {
@@ -54,9 +53,9 @@ class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
                 textEditingController: emailController,
                 label: const Text('メールアドレス'),
                 hintText: HintText.email,
-                maxLength: 20,
                 validateRules: [
                   ValidatorControl.required(),
+                  ValidatorControl.email(),
                 ],
                 onChanged: (value) {
                   notifier

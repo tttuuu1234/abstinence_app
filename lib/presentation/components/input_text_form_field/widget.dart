@@ -1,7 +1,7 @@
-import '../../validator/validator.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/colors.dart';
+import '../../validator/validator.dart';
 
 /// 入力filed(バリデーション可能)
 class InputTextFormFiled extends StatelessWidget {
@@ -10,7 +10,7 @@ class InputTextFormFiled extends StatelessWidget {
     this.textEditingController,
     this.readOnly = false,
     this.textInputAction = TextInputAction.next,
-    this.maxLength = 10,
+    this.maxLength,
     this.validateRules,
     this.label,
     this.hintText,

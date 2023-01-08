@@ -6,4 +6,6 @@ class ValidateMessage {
   static String maxLength(int maxLength) {
     return '$maxLength文字以内で入力してください。';
   }
+
+  static String email = 'email形式で入力してください。';
 }

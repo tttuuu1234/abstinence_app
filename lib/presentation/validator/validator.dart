@@ -1,8 +1,15 @@
+import 'rules/email.dart';
+
 import 'rules/max_length.dart';
 import 'rules/required.dart';
 
 abstract class Validator<T> {
+  /// Validateメッセージ取得
   String getMessage();
+
+  /// validate実行
+  /// true: 無効な入力
+  /// false: 有効な入力
   bool validate(T value);
 }
 
@@ -14,4 +21,5 @@ class ValidatorControl {
   static RequiredValidator required() => RequiredValidator();
   static MaxLengthValidator maxLength([int maxLength = 10]) =>
       MaxLengthValidator(maxLength);
+  static EmailValidator email() => EmailValidator();
 }

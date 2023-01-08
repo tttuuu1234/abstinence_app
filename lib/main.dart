@@ -1,7 +1,7 @@
-import 'importer.dart';
-
-import 'presentation/pages/root/page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+import 'importer.dart';
+import 'presentation/pages/root/page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
