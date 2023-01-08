@@ -10,6 +10,7 @@ class InputTextFormFiled extends StatelessWidget {
     this.textEditingController,
     this.readOnly = false,
     this.textInputAction = TextInputAction.next,
+    this.textInputType,
     this.maxLength,
     this.validateRules,
     this.label,
@@ -21,6 +22,7 @@ class InputTextFormFiled extends StatelessWidget {
   final TextEditingController? textEditingController;
   final bool readOnly;
   final TextInputAction textInputAction;
+  final TextInputType? textInputType;
   final Widget? label;
   final String? hintText;
   final int? maxLength;
@@ -35,6 +37,7 @@ class InputTextFormFiled extends StatelessWidget {
       textInputAction: textInputAction,
       readOnly: readOnly,
       maxLength: maxLength,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         label: label,
         hintText: hintText,

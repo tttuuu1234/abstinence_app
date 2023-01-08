@@ -53,6 +53,7 @@ class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
                 textEditingController: emailController,
                 label: const Text('メールアドレス'),
                 hintText: HintText.email,
+                textInputType: TextInputType.emailAddress,
                 validateRules: [
                   ValidatorControl.required(),
                   ValidatorControl.email(),
@@ -68,9 +69,11 @@ class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
                 textEditingController: passwordController,
                 label: const Text('パスワード'),
                 hintText: HintText.password,
+                textInputType: TextInputType.emailAddress,
                 maxLength: 20,
                 validateRules: [
                   ValidatorControl.required(),
+                  ValidatorControl.between(),
                 ],
                 onChanged: (value) {
                   notifier
@@ -81,15 +84,15 @@ class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
               AppVerticalMargin.xLarge,
               PrimaryButton(
                 title: 'プロフィール入力へ',
-                onPressed: state.isALlInputted &&
-                        formKey.currentState!.validate()
-                    ? () async {
-                        await NavigatorService.push<ProfileRegisterPage>(
-                          context: context,
-                          page: const ProfileRegisterPage(),
-                        );
-                      }
-                    : null,
+                onPressed:
+                    state.isALlInputted && formKey.currentState!.validate()
+                        ? () async {
+                            await NavigatorService.push<ProfileRegisterPage>(
+                              context: context,
+                              page: const ProfileRegisterPage(),
+                            );
+                          }
+                        : null,
               ),
             ],
           ),

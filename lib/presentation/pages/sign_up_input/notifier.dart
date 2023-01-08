@@ -1,6 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../importer.dart';
 import 'state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // AutoDiposeにしないと画面が破棄され(前画面にpop)、再度遷移した時に、formKeyのcurrentStateがnullでエラーになってしまう
 final signUpInputProvider =

@@ -1,3 +1,5 @@
+import 'rules/between.dart';
+
 import 'rules/email.dart';
 
 import 'rules/max_length.dart';
@@ -21,5 +23,7 @@ class ValidatorControl {
   static RequiredValidator required() => RequiredValidator();
   static MaxLengthValidator maxLength([int maxLength = 10]) =>
       MaxLengthValidator(maxLength);
+  static BetweenValidator between({int minLength = 8, int maxLength = 20}) =>
+      BetweenValidator(minLength: minLength, maxLength: maxLength);
   static EmailValidator email() => EmailValidator();
 }

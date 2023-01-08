@@ -7,5 +7,9 @@ class ValidateMessage {
     return '$maxLength文字以内で入力してください。';
   }
 
+  static String between({required int minLength, required int maxLength}) {
+    return '$minLength 〜 $maxLengthで入力してください。';
+  }
+
   static String email = 'email形式で入力してください。';
 }
