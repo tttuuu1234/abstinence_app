@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'importer.dart';
@@ -8,13 +10,14 @@ Future<void> main() async {
 
   const flavor = String.fromEnvironment('FLAVOR');
   final packageInfo = await PackageInfo.fromPlatform();
-  print('---App情報---');
-  print(flavor);
-  print(packageInfo.appName);
-  print(packageInfo.packageName);
-  print(packageInfo.version);
-  print(packageInfo.buildNumber);
-  print('------------');
+  final appInfo = {
+    'flavor': flavor,
+    'app_name': packageInfo.appName,
+    'package_name': packageInfo.packageName,
+    'version': packageInfo.version,
+    'build_number': packageInfo.buildNumber,
+  };
+  log(appInfo.toString());
   runApp(
     const ProviderScope(
       child: App(),
