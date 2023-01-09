@@ -8,7 +8,7 @@ import '../../components/primary_button/widget.dart';
 import '../../validator/validator.dart';
 import '../enthusiasm_register/page.dart';
 
-/// プロフィール登録画面
+/// プロフィール入力画面
 class ProfileInputPage extends ConsumerStatefulWidget {
   const ProfileInputPage({super.key});
 
