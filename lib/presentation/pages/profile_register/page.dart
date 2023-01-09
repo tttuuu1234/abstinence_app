@@ -64,6 +64,7 @@ class _ProfileRegisterPageState extends ConsumerState<ProfileRegisterPage> {
                 textEditingController: ageController,
                 showBottomSheet: () async {
                   await _showSelectAgeBottomSheet(context, selectableAgeList);
+                  // 値を返却してあげることにより、Validatorが発火してくれる
                   return ageController.text.isEmpty
                       ? null
                       : int.parse(ageController.text);

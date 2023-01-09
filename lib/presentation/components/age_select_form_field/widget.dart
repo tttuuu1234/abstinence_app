@@ -18,6 +18,7 @@ class AgeSelectFormField extends FormField<int> {
   AgeSelectFormField({
     super.key,
     required TextEditingController textEditingController,
+    // 返却値をnull許可にし、intRequiredのValidatorでの確認を有効にしている
     required Future<int?> Function() showBottomSheet,
   }) : super(
           validator: (value) {
@@ -41,6 +42,7 @@ class AgeSelectFormField extends FormField<int> {
             return GestureDetector(
               onTap: () async {
                 final age = await showBottomSheet();
+                // 返却値を使用しstateの更新を行うことで、Widget内での値表示の更新、Validatorの発火を行なってくれる
                 state.didChange(age);
               },
               child: Column(
