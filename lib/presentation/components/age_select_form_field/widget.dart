@@ -67,3 +67,63 @@ class AgeSelectFormField extends FormField<int> {
           },
         );
 }
+
+class AgeUtil {
+  AgeUtil._();
+
+  /// 年齢選択ボトムシート表示
+  static Future<void> showBottomSheet({
+    required BuildContext context,
+    required List<int> selectableAgeList,
+    required void Function(int value) setAge,
+  }) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          height: context.getHeight * 0.3,
+          width: context.getWidth,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('戻る'),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: selectableAgeList.length,
+                  itemBuilder: (context, index) {
+                    final age = selectableAgeList[index];
+
+                    return InkWell(
+                      onTap: () {
+                        setAge(age);
+                        Navigator.pop(context);
+                      },
+                      child: SizedBox(
+                        height: context.getHeight * 0.05,
+                        width: context.getWidth,
+                        child: Center(
+                          child: Text(
+                            age.toString(),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}

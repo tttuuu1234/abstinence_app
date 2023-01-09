@@ -78,7 +78,11 @@ class _ProfileInputPageState extends ConsumerState<ProfileInputPage> {
                 AgeSelectFormField(
                   textEditingController: ageController,
                   showBottomSheet: () async {
-                    await _showSelectAgeBottomSheet(context, selectableAgeList);
+                    await AgeUtil.showBottomSheet(
+                      context: context,
+                      selectableAgeList: selectableAgeList,
+                      setAge: setAge,
+                    );
                     final age = ageController.text.isEmpty
                         ? null
                         : int.parse(ageController.text);
@@ -107,60 +111,6 @@ class _ProfileInputPageState extends ConsumerState<ProfileInputPage> {
           ),
         ),
       ),
-    );
-  }
-
-  Future<void> _showSelectAgeBottomSheet(
-    BuildContext context,
-    List<int> selectableAgeList,
-  ) {
-    return showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return SizedBox(
-          height: context.getHeight * 0.3,
-          width: context.getWidth,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('戻る'),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: selectableAgeList.length,
-                  itemBuilder: (context, index) {
-                    final age = selectableAgeList[index];
-
-                    return InkWell(
-                      onTap: () {
-                        setAge(age);
-                        Navigator.pop(context);
-                      },
-                      child: SizedBox(
-                        height: context.getHeight * 0.05,
-                        width: context.getWidth,
-                        child: Center(
-                          child: Text(
-                            age.toString(),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }
