@@ -1,6 +1,6 @@
-import 'package:abstinence_app/importer.dart';
-import 'package:abstinence_app/presentation/components/input_text_form_field/widget.dart';
-import 'package:abstinence_app/presentation/validator/validator.dart';
+import '../../../importer.dart';
+import '../input_text_form_field/widget.dart';
+import '../../validator/validator.dart';
 
 /// 選択可能年齢一覧
 final selectableAgeListProvider = Provider<List<int>>((ref) {

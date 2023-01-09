@@ -4,15 +4,15 @@ import '../../components/multi_input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
 import '../home/widget.dart';
 
-/// 意気込み登録画面
-class EnthusiasmRegisterPage extends ConsumerWidget {
-  const EnthusiasmRegisterPage({super.key});
+/// 意気込み入力画面
+class EnthusiasmInputPage extends ConsumerWidget {
+  const EnthusiasmInputPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('意気込み登録'),
+        title: const Text('意気込み入力'),
       ),
       body: Padding(
         padding: AppPadding.smallAll,
@@ -30,7 +30,7 @@ class EnthusiasmRegisterPage extends ConsumerWidget {
               ),
               AppVerticalMargin.xLarge,
               PrimaryButton(
-                title: 'プロフィール登録',
+                title: 'アカウント登録',
                 onPressed: () async {
                   await NavigatorService.push<HomePage>(
                     context: context,
