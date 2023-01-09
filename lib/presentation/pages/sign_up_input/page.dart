@@ -3,7 +3,7 @@ import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
 import '../../validator/validator.dart';
-import '../profile_register/page.dart';
+import '../profile_input/page.dart';
 import 'notifier.dart';
 
 /// 新規登録認証情報入力画面
@@ -87,9 +87,9 @@ class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
                 onPressed:
                     state.isALlInputted && formKey.currentState!.validate()
                         ? () async {
-                            await NavigatorService.push<ProfileRegisterPage>(
+                            await NavigatorService.push<ProfileInputPage>(
                               context: context,
-                              page: const ProfileRegisterPage(),
+                              page: const ProfileInputPage(),
                             );
                           }
                         : null,

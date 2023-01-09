@@ -4,7 +4,7 @@ import '../validator.dart';
 /// 最小文字数と最大文字数の間
 class BetweenValidator implements Validator<String?> {
   BetweenValidator({required this.minLength, required this.maxLength})
-      : assert(minLength <= maxLength);
+      : assert(minLength < maxLength);
 
   final int minLength;
   final int maxLength;
