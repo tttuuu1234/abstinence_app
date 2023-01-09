@@ -1,4 +1,5 @@
 import 'package:abstinence_app/presentation/components/age_select_form_field/widget.dart';
+import 'package:abstinence_app/presentation/pages/profile_input/notifier.dart';
 
 import '../../../importer.dart';
 import '../../components/hint_text.dart';
@@ -8,15 +9,15 @@ import '../../validator/validator.dart';
 import '../enthusiasm_register/page.dart';
 
 /// プロフィール登録画面
-class ProfileRegisterPage extends ConsumerStatefulWidget {
-  const ProfileRegisterPage({super.key});
+class ProfileInputPage extends ConsumerStatefulWidget {
+  const ProfileInputPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ProfileRegisterPageState();
+      _ProfileInputPageState();
 }
 
-class _ProfileRegisterPageState extends ConsumerState<ProfileRegisterPage> {
+class _ProfileInputPageState extends ConsumerState<ProfileInputPage> {
   final formKey = GlobalKey<FormState>();
   late TextEditingController nicknameController;
   late TextEditingController ageController;
@@ -43,6 +44,8 @@ class _ProfileRegisterPageState extends ConsumerState<ProfileRegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(profileInputProvider);
+    final notifier = ref.watch(profileInputProvider.notifier);
     final selectableAgeList = ref.read(selectableAgeListProvider);
 
     return Scaffold(
@@ -52,35 +55,55 @@ class _ProfileRegisterPageState extends ConsumerState<ProfileRegisterPage> {
       body: Padding(
         padding: AppPadding.smallAll,
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              InputTextFormFiled(
-                textEditingController: nicknameController,
-                label: const Text('ニックネーム'),
-                hintText: HintText.nickname,
-              ),
-              AppVerticalMargin.xLarge,
-              AgeSelectFormField(
-                textEditingController: ageController,
-                showBottomSheet: () async {
-                  await _showSelectAgeBottomSheet(context, selectableAgeList);
-                  // 値を返却してあげることにより、Validatorが発火してくれる
-                  return ageController.text.isEmpty
-                      ? null
-                      : int.parse(ageController.text);
-                },
-              ),
-              AppVerticalMargin.xLarge,
-              PrimaryButton(
-                title: '意気込み入力へ',
-                onPressed: () async {
-                  await NavigatorService.push<EnthusiasmRegisterPage>(
-                    context: context,
-                    page: const EnthusiasmRegisterPage(),
-                  );
-                },
-              ),
-            ],
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                InputTextFormFiled(
+                  textEditingController: nicknameController,
+                  label: const Text('ニックネーム'),
+                  hintText: HintText.nickname,
+                  maxLength: 10,
+                  validateRules: [
+                    ValidatorControl.required(),
+                    ValidatorControl.maxLength(),
+                  ],
+                  onChanged: (value) {
+                    notifier
+                      ..setNickname(value)
+                      ..checkAllInputted();
+                  },
+                ),
+                AppVerticalMargin.xLarge,
+                AgeSelectFormField(
+                  textEditingController: ageController,
+                  showBottomSheet: () async {
+                    await _showSelectAgeBottomSheet(context, selectableAgeList);
+                    final age = ageController.text.isEmpty
+                        ? null
+                        : int.parse(ageController.text);
+                    notifier
+                      ..setAge(age)
+                      ..checkAllInputted();
+
+                    return age;
+                  },
+                ),
+                AppVerticalMargin.xLarge,
+                PrimaryButton(
+                  title: '意気込み入力へ',
+                  onPressed: state.isALlInputted &&
+                          formKey.currentState!.validate()
+                      ? () async {
+                          await NavigatorService.push<EnthusiasmRegisterPage>(
+                            context: context,
+                            page: const EnthusiasmRegisterPage(),
+                          );
+                        }
+                      : null,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -115,6 +138,7 @@ class _ProfileRegisterPageState extends ConsumerState<ProfileRegisterPage> {
                   itemCount: selectableAgeList.length,
                   itemBuilder: (context, index) {
                     final age = selectableAgeList[index];
+
                     return InkWell(
                       onTap: () {
                         setAge(age);
