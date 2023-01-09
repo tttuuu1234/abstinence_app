@@ -1,5 +1,4 @@
 import '../../../importer.dart';
-import '../input_text_form_field/widget.dart';
 import '../../validator/validator.dart';
 
 /// 選択可能年齢一覧
@@ -48,17 +47,23 @@ class AgeSelectFormField extends FormField<int> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InputTextFormFiled(
+                  _AgeTextFormFiled(
                     textEditingController: textEditingController,
-                    label: Text(
-                      state.value == null ? '年齢を選択してください' : '年齢',
-                    ),
-                    enabled: false,
+                    labelText: state.value == null ? '年齢を選択してください' : '年齢',
+                    hasError: state.hasError,
                   ),
                   state.hasError
-                      ? Text(
-                          state.errorText!,
-                          style: const TextStyle(color: AppColor.red),
+                      ? Column(
+                          children: [
+                            const SizedBox(height: 8),
+                            Text(
+                              state.errorText!,
+                              style: TextStyle(
+                                color: AppColor.red,
+                                fontSize: AppSize.validateErrorText,
+                              ),
+                            ),
+                          ],
                         )
                       : const SizedBox.shrink(),
                 ],
@@ -124,6 +129,36 @@ class AgeUtil {
           ),
         );
       },
+    );
+  }
+}
+
+class _AgeTextFormFiled extends StatelessWidget {
+  const _AgeTextFormFiled({
+    Key? key,
+    this.textEditingController,
+    this.labelText,
+    this.hasError = false,
+  }) : super(key: key);
+
+  final TextEditingController? textEditingController;
+  final String? labelText;
+  final bool hasError;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: textEditingController,
+      enabled: false,
+      decoration: InputDecoration(
+        labelText: labelText,
+        contentPadding: EdgeInsets.zero,
+        disabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: hasError ? AppColor.red : AppColor.grey,
+          ),
+        ),
+      ),
     );
   }
 }
