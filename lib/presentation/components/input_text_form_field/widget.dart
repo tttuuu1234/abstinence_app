@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import '../../styles/colors.dart';
 import '../../validator/validator.dart';
 
-/// 入力filed(バリデーション可能)
+/// 入力filed
+/// Validation可能
 class InputTextFormFiled extends StatelessWidget {
   const InputTextFormFiled({
     Key? key,
     this.textEditingController,
-    this.readOnly = false,
+    this.enabled = true,
     this.textInputAction = TextInputAction.next,
     this.textInputType,
     this.maxLength,
@@ -20,7 +21,7 @@ class InputTextFormFiled extends StatelessWidget {
   }) : super(key: key);
 
   final TextEditingController? textEditingController;
-  final bool readOnly;
+  final bool enabled;
   final TextInputAction textInputAction;
   final TextInputType? textInputType;
   final Widget? label;
@@ -35,7 +36,7 @@ class InputTextFormFiled extends StatelessWidget {
     return TextFormField(
       controller: textEditingController,
       textInputAction: textInputAction,
-      readOnly: readOnly,
+      enabled: enabled,
       maxLength: maxLength,
       keyboardType: textInputType,
       decoration: InputDecoration(
