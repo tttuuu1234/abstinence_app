@@ -4,6 +4,7 @@ import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/multi_input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
+import '../../validator/validator.dart';
 import '../home/widget.dart';
 
 /// 意気込み入力画面
@@ -48,13 +49,21 @@ class _EnthusiasmInputPageState extends ConsumerState<EnthusiasmInputPage> {
             child: Column(
               children: [
                 const Text(
-                  'あなたの意気込みは登録されている方全てに公開されます。\n是非あなたの禁！欲！に対しての熱い意気込みを記入してください。\nそして、世界に示しましょう。\nあなたの覚悟を。',
+                  'あなたの意気込みはアプリユーザー全てに公開されます。\n是非あなたの禁！欲！に対しての熱い意気込みを記入してください。\nそして、世界に示しましょう。\nあなたの覚悟を。',
                 ),
                 AppVerticalMargin.xLarge,
                 MultiInputTextFormFiled(
                   textEditingController: enthusiasmController,
                   labelText: '意気込み',
                   hintText: HintText.enthusiasm,
+                  validateRules: [
+                    ValidatorControl.required(),
+                  ],
+                  onChanged: (value) {
+                    notifier
+                      ..setEnthusiasm(value)
+                      ..checkAllInputted();
+                  },
                 ),
                 AppVerticalMargin.xLarge,
                 PrimaryButton(
