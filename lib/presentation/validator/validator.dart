@@ -1,9 +1,6 @@
-import 'package:abstinence_app/presentation/validator/rules/min.dart';
-
+import 'rules/min.dart';
 import 'rules/between.dart';
-
 import 'rules/email.dart';
-
 import 'rules/max.dart';
 import 'rules/required.dart';
 

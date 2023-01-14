@@ -1,12 +1,12 @@
-import 'package:abstinence_app/presentation/components/age_select_form_field/widget.dart';
-import 'package:abstinence_app/presentation/pages/profile_input/notifier.dart';
+import '../../components/age_select_form_field/widget.dart';
+import 'notifier.dart';
 
 import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
 import '../../validator/validator.dart';
-import '../enthusiasm_register/page.dart';
+import '../enthusiasm_input/page.dart';
 
 /// プロフィール入力画面
 class ProfileInputPage extends ConsumerStatefulWidget {
@@ -50,7 +50,7 @@ class _ProfileInputPageState extends ConsumerState<ProfileInputPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('プロフィール登録'),
+        title: const Text('プロフィール入力'),
       ),
       body: Padding(
         padding: AppPadding.smallAll,
@@ -96,15 +96,15 @@ class _ProfileInputPageState extends ConsumerState<ProfileInputPage> {
                 AppVerticalMargin.xLarge,
                 PrimaryButton(
                   title: '意気込み入力へ',
-                  onPressed: state.isALlInputted &&
-                          formKey.currentState!.validate()
-                      ? () async {
-                          await NavigatorService.push<EnthusiasmRegisterPage>(
-                            context: context,
-                            page: const EnthusiasmRegisterPage(),
-                          );
-                        }
-                      : null,
+                  onPressed:
+                      state.isALlInputted && formKey.currentState!.validate()
+                          ? () async {
+                              await NavigatorService.push<EnthusiasmInputPage>(
+                                context: context,
+                                page: const EnthusiasmInputPage(),
+                              );
+                            }
+                          : null,
                 ),
               ],
             ),

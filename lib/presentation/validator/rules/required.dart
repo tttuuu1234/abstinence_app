@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '../message.dart';
 import '../validator.dart';
 
