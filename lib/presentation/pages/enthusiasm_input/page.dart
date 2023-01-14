@@ -1,4 +1,4 @@
-import 'package:abstinence_app/presentation/pages/enthusiasm_input/notifier.dart';
+import 'notifier.dart';
 
 import '../../../importer.dart';
 import '../../components/hint_text.dart';
@@ -71,6 +71,12 @@ class _EnthusiasmInputPageState extends ConsumerState<EnthusiasmInputPage> {
                   onPressed:
                       state.isALlInputted && formKey.currentState!.validate()
                           ? () async {
+                              await notifier.signUp(
+                                onSuccess: (uid) async {
+                                  await notifier.create(uid);
+                                },
+                                onFailuer: () {},
+                              );
                               await NavigatorService.push<HomePage>(
                                 context: context,
                                 page: const HomePage(),

@@ -10,6 +10,19 @@ class HomePage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('ホーム'),
       ),
+      body: Center(
+        child: Column(
+          children: [
+            TextButton(
+              onPressed: () async {
+                // 一旦サインアウトしたいので
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+              child: const Text('サインアウト'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
