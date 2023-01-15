@@ -25,6 +25,23 @@ class FirebaseAuthService {
     }
   }
 
+  /// メールアドレス、パスワードでのサインイン
+  Future<UserCredential> signIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return credential;
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthException(code: e.code, message: e.message);
+    }
+  }
+
   /// サインアウト
   Future<void> signOut() async {
     try {
