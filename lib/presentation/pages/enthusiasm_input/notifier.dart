@@ -1,3 +1,6 @@
+import 'package:abstinence_app/core/local/secure_storage/service.dart';
+import 'package:abstinence_app/provider/local.dart';
+
 import '../../../core/firebase/auth/service.dart';
 import '../../../core/firebase/firestore/repositories/user.dart';
 import '../../../core/firebase/firestore/requests/user/create/request.dart';
@@ -16,12 +19,14 @@ final enthusiasmInputProvider = AutoDisposeStateNotifierProvider<
   final profileInputState = ref.watch(profileInputProvider);
   final userRepository = ref.watch(userRepositoryImplProvider);
   final firebaseAuthService = ref.watch(firebaseAuthServiceProvider);
+  final localSecureStorage = ref.watch(localSecureStorageProvider);
 
   return EnthusiasmInputNotifier(
     signUpInputState: signUpInputState,
     profileInputState: profileInputState,
     userRepository: userRepository,
     firebaseAuthService: firebaseAuthService,
+    localSecureStorage: localSecureStorage,
   );
 });
 
@@ -31,6 +36,7 @@ class EnthusiasmInputNotifier extends StateNotifier<EnthusiasmInputState> {
     required this.profileInputState,
     required this.userRepository,
     required this.firebaseAuthService,
+    required this.localSecureStorage,
   })  : assert(
           profileInputState.age != null,
           '年齢が未入力になっています。年齢は必須入力なので、修正が必要です。',
@@ -41,6 +47,7 @@ class EnthusiasmInputNotifier extends StateNotifier<EnthusiasmInputState> {
   final ProfileInputState profileInputState;
   final UserRepository userRepository;
   final FirebaseAuthService firebaseAuthService;
+  final LocalSecureStorage localSecureStorage;
 
   void setEnthusiasm(String value) {
     state = state.copyWith(enthusiasm: value);
@@ -85,8 +92,23 @@ class EnthusiasmInputNotifier extends StateNotifier<EnthusiasmInputState> {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
-    await userRepository.create(uid: uid, request: request).then((value) {
+    await userRepository.create(uid: uid, request: request).then((_) async {
       print('画面側で成功を受け取り');
+      final currentUser = firebaseAuthService.fetchCurrentUser();
+      print(currentUser);
+      final currentUserId = currentUser == null ? uid : currentUser.uid;
+      final currentUserEmail =
+          currentUser == null ? signUpInputState.email : currentUser.email;
+
+      // 認証情報の保持
+      await localSecureStorage.write(
+        key: LocalSecureStorageKey.uid.name,
+        value: currentUserId,
+      );
+      await localSecureStorage.write(
+        key: LocalSecureStorageKey.email.name,
+        value: currentUserEmail,
+      );
     }).catchError((e) {
       print('画面側でエラーの受け取り');
       print(e);
