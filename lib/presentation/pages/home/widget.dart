@@ -1,3 +1,7 @@
+import 'package:abstinence_app/core/firebase/auth/service.dart';
+import 'package:abstinence_app/core/local/secure_storage/service.dart';
+import 'package:abstinence_app/presentation/provider/user/notifier.dart';
+
 import '../../../importer.dart';
 
 /// ホーム画面
@@ -6,6 +10,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userNotifier = ref.watch(userProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text('ホーム'),
@@ -16,6 +21,15 @@ class HomePage extends ConsumerWidget {
             TextButton(
               onPressed: () async {
                 // 一旦サインアウトしたいので
+                await FirebaseAuthService().signOut();
+                await LocalSecureStorage().delete(
+                  LocalSecureStorageKey.uid.name,
+                );
+                await LocalSecureStorage().delete(
+                  LocalSecureStorageKey.email.name,
+                );
+                await userNotifier.setMode();
+                // ignore: use_build_context_synchronously
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
               child: const Text('サインアウト'),

@@ -14,8 +14,8 @@ class RootPage extends ConsumerWidget {
     final user = ref.watch(userProvider);
 
     return user.map(
-      authenticated:(_) => const HomePage(),
-      unAuthenticated:(_) => const UnAuthenticatedPage(),
+      authenticated: (_) => const HomePage(),
+      unAuthenticated: (_) => const UnAuthenticatedPage(),
     );
   }
 }

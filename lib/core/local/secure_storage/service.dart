@@ -12,6 +12,10 @@ class LocalSecureStorage {
   Future<String?> read(String key) async {
     return _secureStorage.read(key: key);
   }
+
+  Future<void> delete(String key) async {
+    await _secureStorage.delete(key: key);
+  }
 }
 
 enum LocalSecureStorageKey {
