@@ -1,9 +1,11 @@
+import 'package:abstinence_app/presentation/pages/home/widget.dart';
+import 'package:abstinence_app/presentation/provider/user/notifier.dart';
+
 import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
 import '../../validator/validator.dart';
-import '../profile_input/page.dart';
 import 'notifier.dart';
 
 /// サインイン画面
@@ -38,6 +40,7 @@ class _SignInInputPageState extends ConsumerState<SignInInputPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(signInInputProvider);
     final notifier = ref.watch(signInInputProvider.notifier);
+    final userNotifier = ref.watch(userProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -87,9 +90,15 @@ class _SignInInputPageState extends ConsumerState<SignInInputPage> {
                 onPressed:
                     state.isALlInputted && formKey.currentState!.validate()
                         ? () async {
-                            await NavigatorService.push<ProfileInputPage>(
-                              context: context,
-                              page: const ProfileInputPage(),
+                            await notifier.signIn(
+                              onSuccess: () async {
+                                await userNotifier.setMode();
+                                await Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const HomePage(),
+                                ));
+                              },
+                              onFailuer: () {},
                             );
                           }
                         : null,
