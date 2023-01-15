@@ -3,6 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  /// ログイン済みユーザー情報の取得
+  User? fetchCurrentUser() {
+    return _firebaseAuth.currentUser;
+  }
+
   /// メールアドレス、パスワードでのサインアップ
   Future<UserCredential> signUp({
     required String email,

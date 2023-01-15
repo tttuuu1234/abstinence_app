@@ -5,7 +5,7 @@ class NavigatorService {
     required BuildContext context,
     required Widget page,
   }) async {
-    Navigator.of(context).push(
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => page,
       ),
