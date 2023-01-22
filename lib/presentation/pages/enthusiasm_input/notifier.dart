@@ -1,5 +1,5 @@
-import 'package:abstinence_app/core/local/secure_storage/service.dart';
-import 'package:abstinence_app/provider/local.dart';
+import '../../../core/local/secure_storage/service.dart';
+import '../../../provider/local.dart';
 
 import '../../../core/firebase/auth/service.dart';
 import '../../../core/firebase/firestore/repositories/user.dart';

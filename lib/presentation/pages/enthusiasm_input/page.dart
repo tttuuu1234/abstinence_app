@@ -1,11 +1,10 @@
-import 'notifier.dart';
-
 import '../../../importer.dart';
 import '../../components/hint_text.dart';
 import '../../components/multi_input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
 import '../../validator/validator.dart';
 import '../home/widget.dart';
+import 'notifier.dart';
 
 /// 意気込み入力画面
 class EnthusiasmInputPage extends ConsumerStatefulWidget {
@@ -78,7 +77,6 @@ class _EnthusiasmInputPageState extends ConsumerState<EnthusiasmInputPage> {
                                 onFailuer: () {},
                               );
                               await NavigatorService.push<HomePage>(
-                                context: context,
                                 page: const HomePage(),
                               );
                             }

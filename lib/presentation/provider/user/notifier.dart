@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:abstinence_app/core/local/secure_storage/service.dart';
-import 'package:abstinence_app/presentation/provider/user/state.dart';
-import 'package:abstinence_app/provider/local.dart';
+import '../../../core/local/secure_storage/service.dart';
+import 'state.dart';
+import '../../../provider/local.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final userProvider =

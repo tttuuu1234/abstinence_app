@@ -88,7 +88,6 @@ class _SignUpInputPageState extends ConsumerState<SignUpInputPage> {
                     state.isALlInputted && formKey.currentState!.validate()
                         ? () async {
                             await NavigatorService.push<ProfileInputPage>(
-                              context: context,
                               page: const ProfileInputPage(),
                             );
                           }

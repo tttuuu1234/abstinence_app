@@ -30,7 +30,6 @@ class UnAuthenticatedHomePage extends StatelessWidget {
                     title: '新規登録',
                     onPressed: () async {
                       await NavigatorService.push<SignUpInputPage>(
-                        context: context,
                         page: const SignUpInputPage(),
                       );
                     },
@@ -39,7 +38,6 @@ class UnAuthenticatedHomePage extends StatelessWidget {
                   TextButton(
                     onPressed: () async {
                       await NavigatorService.push<SignUpInputPage>(
-                        context: context,
                         page: const SignInInputPage(),
                       );
                     },

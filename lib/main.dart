@@ -1,10 +1,15 @@
 import 'dart:developer';
 
+import 'presentation/extension/widget_ref.dart';
+import 'presentation/pages/sign_in_input/notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'importer.dart';
+import 'presentation/components/loading_indicator/widget.dart';
+import 'presentation/pages/home/widget.dart';
 import 'presentation/pages/root/page.dart';
+import 'provider/key.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,13 +32,23 @@ Future<void> main() async {
   );
 }
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.handleAsyncValue<void>(
+      sigInProvider,
+      completeMessage: 'サインインしました',
+      complete: (context, _) async {
+        await NavigatorService.push(page: const HomePage());
+      },
+    );
+
     return MaterialApp(
       title: '禁！欲！',
+      scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
+      navigatorKey: NavigatorService.navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: AppColor.white,
@@ -44,6 +59,24 @@ class App extends StatelessWidget {
         ),
       ),
       home: const RootPage(),
+      builder: (context, child) {
+        return Consumer(
+          builder: (context, ref, _) {
+            final isLoading = ref.watch(loadingProvider);
+
+            return Stack(
+              children: [
+                child!,
+                if (isLoading)
+                  const ColoredBox(
+                    color: Colors.black26,
+                    child: LoadingIndicator(),
+                  )
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }
