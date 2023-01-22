@@ -1,5 +1,7 @@
 // ignore_for_file: cascade_invocations
 
+import 'dart:developer';
+
 import 'package:abstinence_app/core/firebase/auth/service.dart';
 import 'package:abstinence_app/provider/firebase.dart';
 import 'package:abstinence_app/provider/local.dart';
@@ -65,6 +67,7 @@ class SignInInputNotifier extends StateNotifier<SignInInputState> {
       if (currentUser == null) {
         assert(currentUser != null, 'ユーザー情報を取得できませんでした。');
         await firebaseAuthService.signOut();
+        log('エラーが発生しました。\n再度お試しください。');
         // handleAsyncValueのerrorの方で受け取ってくれる
         throw Exception('エラーが発生しました。\n再度お試しください。');
       }

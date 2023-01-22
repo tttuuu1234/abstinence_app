@@ -8,6 +8,7 @@ extension WidgetRefEx on WidgetRef {
     ProviderListenable<AsyncValue<T>> asyncValueProvider, {
     void Function(BuildContext context, T data)? complete,
     String? completeMessage,
+    String? errorMessage,
   }) =>
       listen<AsyncValue<T>>(
         asyncValueProvider,
@@ -42,9 +43,12 @@ extension WidgetRefEx on WidgetRef {
               // エラーが発生したらスナックバーを表示する
               final messengerState =
                   read(scaffoldMessengerKeyProvider).currentState;
+              final message = errorMessage == null || errorMessage.isEmpty
+                  ? e.toString()
+                  : errorMessage;
               messengerState?.showSnackBar(
                 SnackBar(
-                  content: Text(e.toString()),
+                  content: Text(message),
                 ),
               );
             },

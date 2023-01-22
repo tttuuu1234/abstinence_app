@@ -39,7 +39,8 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.handleAsyncValue<void>(
       sigInProvider,
-      completeMessage: 'サインインしました',
+      completeMessage: 'サインインに成功しました',
+      errorMessage: '認証に失敗しました。再度お試しください。',
       complete: (context, _) async {
         await NavigatorService.pushRemoveUntil(page: const HomePage());
       },
