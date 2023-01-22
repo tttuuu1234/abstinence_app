@@ -1,3 +1,7 @@
+// ignore_for_file: cascade_invocations
+
+import 'dart:developer';
+
 import 'package:abstinence_app/core/firebase/auth/service.dart';
 import 'package:abstinence_app/provider/firebase.dart';
 import 'package:abstinence_app/provider/local.dart';
@@ -12,18 +16,27 @@ final signInInputProvider =
         (ref) {
   final firebaseAuthService = ref.watch(firebaseAuthServiceProvider);
   final localSecureStorage = ref.watch(localSecureStorageProvider);
+
   return SignInInputNotifier(
+    ref: ref,
     firebaseAuthService: firebaseAuthService,
     localSecureStorage: localSecureStorage,
   );
 });
 
+/// サインイン処理状態
+final sigInProvider = StateProvider<AsyncValue>((ref) {
+  return const AsyncValue.data(null);
+});
+
 class SignInInputNotifier extends StateNotifier<SignInInputState> {
   SignInInputNotifier({
+    required this.ref,
     required this.firebaseAuthService,
     required this.localSecureStorage,
   }) : super(SignInInputState());
 
+  final Ref ref;
   final FirebaseAuthService firebaseAuthService;
   final LocalSecureStorage localSecureStorage;
 
@@ -41,19 +54,22 @@ class SignInInputNotifier extends StateNotifier<SignInInputState> {
     );
   }
 
-  Future<void> signIn({
-    required void Function() onSuccess,
-    required void Function() onFailuer,
-  }) async {
-    await firebaseAuthService
-        .signIn(email: state.email, password: state.password)
-        .then((value) async {
-      print('サインイン成功');
-      print(value);
-      final currentUser = value.user;
+  Future<void> signIn({required void Function() onSuccess}) async {
+    final notifier = ref.read(sigInProvider.notifier);
+    notifier.state = const AsyncValue.loading();
+    // guardでtry~catchを楽に行なってくれている
+    notifier.state = await AsyncValue.guard(() async {
+      final response = await firebaseAuthService.signIn(
+        email: state.email,
+        password: state.password,
+      );
+      final currentUser = response.user;
       if (currentUser == null) {
         assert(currentUser != null, 'ユーザー情報を取得できませんでした。');
-        return;
+        await firebaseAuthService.signOut();
+        log('エラーが発生しました。\n再度お試しください。');
+        // handleAsyncValueのerrorの方で受け取ってくれる
+        throw Exception('エラーが発生しました。\n再度お試しください。');
       }
 
       // 認証情報の保持
@@ -66,10 +82,6 @@ class SignInInputNotifier extends StateNotifier<SignInInputState> {
         value: currentUser.email,
       );
       onSuccess();
-    }).catchError((error) {
-      print('エラーです');
-      print(error);
-      onFailuer();
     });
   }
 }

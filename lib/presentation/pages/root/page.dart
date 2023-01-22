@@ -1,6 +1,6 @@
-import 'package:abstinence_app/presentation/pages/home/widget.dart';
-import 'package:abstinence_app/presentation/pages/un_authenticated_home/page.dart';
-import 'package:abstinence_app/presentation/provider/user/notifier.dart';
+import '../home/widget.dart';
+import '../un_authenticated_home/page.dart';
+import '../../provider/user/notifier.dart';
 
 import '../../../importer.dart';
 

@@ -1,6 +1,6 @@
-import 'package:abstinence_app/core/firebase/auth/service.dart';
-import 'package:abstinence_app/core/local/secure_storage/service.dart';
-import 'package:abstinence_app/presentation/provider/user/notifier.dart';
+import '../../../core/firebase/auth/service.dart';
+import '../../../core/local/secure_storage/service.dart';
+import '../../provider/user/notifier.dart';
 
 import '../../../importer.dart';
 
@@ -14,6 +14,7 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ホーム'),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(

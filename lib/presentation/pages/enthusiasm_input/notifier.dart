@@ -1,5 +1,9 @@
-import 'package:abstinence_app/core/local/secure_storage/service.dart';
-import 'package:abstinence_app/provider/local.dart';
+// ignore_for_file: cascade_invocations
+
+import 'dart:developer';
+
+import '../../../core/local/secure_storage/service.dart';
+import '../../../provider/local.dart';
 
 import '../../../core/firebase/auth/service.dart';
 import '../../../core/firebase/firestore/repositories/user.dart';
@@ -22,6 +26,7 @@ final enthusiasmInputProvider = AutoDisposeStateNotifierProvider<
   final localSecureStorage = ref.watch(localSecureStorageProvider);
 
   return EnthusiasmInputNotifier(
+    ref: ref,
     signUpInputState: signUpInputState,
     profileInputState: profileInputState,
     userRepository: userRepository,
@@ -30,8 +35,14 @@ final enthusiasmInputProvider = AutoDisposeStateNotifierProvider<
   );
 });
 
+/// サインアップ処理状態
+final signUpProvider = StateProvider<AsyncValue<void>>((ref) {
+  return const AsyncValue.data(null);
+});
+
 class EnthusiasmInputNotifier extends StateNotifier<EnthusiasmInputState> {
   EnthusiasmInputNotifier({
+    required this.ref,
     required this.signUpInputState,
     required this.profileInputState,
     required this.userRepository,
@@ -43,6 +54,7 @@ class EnthusiasmInputNotifier extends StateNotifier<EnthusiasmInputState> {
         ),
         super(EnthusiasmInputState());
 
+  final Ref ref;
   final SignUpInputState signUpInputState;
   final ProfileInputState profileInputState;
   final UserRepository userRepository;
@@ -57,29 +69,23 @@ class EnthusiasmInputNotifier extends StateNotifier<EnthusiasmInputState> {
     state = state.copyWith(isALlInputted: state.enthusiasm.isNotEmpty);
   }
 
-  Future<void> signUp({
-    required void Function(String uid) onSuccess,
-    required void Function() onFailuer,
-  }) async {
-    await firebaseAuthService
-        .signUp(
-      email: signUpInputState.email,
-      password: signUpInputState.password,
-    )
-        .then((value) {
-      print('画面がわ');
-      print(value);
-      final user = value.user;
+  Future<void> signUp({required void Function(String uid) onSuccess}) async {
+    final notifier = ref.read(signUpProvider.notifier);
+    notifier.state = const AsyncValue.loading();
+    notifier.state = await AsyncValue.guard(() async {
+      final response = await firebaseAuthService.signUp(
+        email: signUpInputState.email,
+        password: signUpInputState.password,
+      );
+      final user = response.user;
       if (user == null) {
         assert(user != null, '新規登録後にuserが取得できていない');
-        return;
+        log('エラーが発生しました。\n再度お試しください。');
+        // handleAsyncValueのerrorの方で受け取ってくれる
+        throw Exception('エラーが発生しました。\n再度お試しください。');
       }
 
       onSuccess(user.uid);
-    }).catchError((error) {
-      print('画面がわエラー');
-      print(error);
-      onFailuer();
     });
   }
 
@@ -93,9 +99,7 @@ class EnthusiasmInputNotifier extends StateNotifier<EnthusiasmInputState> {
       updatedAt: DateTime.now(),
     );
     await userRepository.create(uid: uid, request: request).then((_) async {
-      print('画面側で成功を受け取り');
       final currentUser = firebaseAuthService.fetchCurrentUser();
-      print(currentUser);
       final currentUserId = currentUser == null ? uid : currentUser.uid;
       final currentUserEmail =
           currentUser == null ? signUpInputState.email : currentUser.email;
@@ -109,9 +113,6 @@ class EnthusiasmInputNotifier extends StateNotifier<EnthusiasmInputState> {
         key: LocalSecureStorageKey.email.name,
         value: currentUserEmail,
       );
-    }).catchError((e) {
-      print('画面側でエラーの受け取り');
-      print(e);
     });
   }
 }

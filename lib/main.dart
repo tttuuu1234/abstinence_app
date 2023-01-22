@@ -1,10 +1,17 @@
 import 'dart:developer';
 
+import 'package:abstinence_app/presentation/pages/enthusiasm_input/notifier.dart';
+
+import 'presentation/extension/widget_ref.dart';
+import 'presentation/pages/sign_in_input/notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'importer.dart';
+import 'presentation/components/loading_indicator/widget.dart';
+import 'presentation/pages/home/widget.dart';
 import 'presentation/pages/root/page.dart';
+import 'provider/key.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,13 +34,33 @@ Future<void> main() async {
   );
 }
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref
+      ..handleAsyncValue<void>(
+        signUpProvider,
+        completeMessage: '新規登録に成功しました。',
+        errorMessage: '新規登録に失敗しました。再度お試しください。',
+        complete: (_, __) async {
+          await NavigatorService.pushRemoveUntil(page: const HomePage());
+        },
+      )
+      ..handleAsyncValue<void>(
+        sigInProvider,
+        completeMessage: 'サインインに成功しました',
+        errorMessage: '認証に失敗しました。再度お試しください。',
+        complete: (_, __) async {
+          await NavigatorService.pushRemoveUntil(page: const HomePage());
+        },
+      );
+
     return MaterialApp(
       title: '禁！欲！',
+      scaffoldMessengerKey: ref.watch(scaffoldMessengerKeyProvider),
+      navigatorKey: NavigatorService.navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: AppColor.white,
@@ -44,6 +71,24 @@ class App extends StatelessWidget {
         ),
       ),
       home: const RootPage(),
+      builder: (context, child) {
+        return Consumer(
+          builder: (context, ref, _) {
+            final isLoading = ref.watch(loadingProvider);
+
+            return Stack(
+              children: [
+                child!,
+                if (isLoading)
+                  const ColoredBox(
+                    color: Colors.black26,
+                    child: LoadingIndicator(),
+                  )
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

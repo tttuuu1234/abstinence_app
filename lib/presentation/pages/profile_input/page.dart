@@ -1,12 +1,11 @@
-import '../../components/age_select_form_field/widget.dart';
-import 'notifier.dart';
-
 import '../../../importer.dart';
+import '../../components/age_select_form_field/widget.dart';
 import '../../components/hint_text.dart';
 import '../../components/input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
 import '../../validator/validator.dart';
 import '../enthusiasm_input/page.dart';
+import 'notifier.dart';
 
 /// プロフィール入力画面
 class ProfileInputPage extends ConsumerStatefulWidget {
@@ -100,7 +99,6 @@ class _ProfileInputPageState extends ConsumerState<ProfileInputPage> {
                       state.isALlInputted && formKey.currentState!.validate()
                           ? () async {
                               await NavigatorService.push<EnthusiasmInputPage>(
-                                context: context,
                                 page: const EnthusiasmInputPage(),
                               );
                             }
