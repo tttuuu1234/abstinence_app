@@ -1,7 +1,6 @@
 import '../../importer.dart';
 
 import '../../provider/key.dart';
-import '../components/error_dialog/widget.dart';
 import '../components/loading_indicator/widget.dart';
 
 extension WidgetRefEx on WidgetRef {
