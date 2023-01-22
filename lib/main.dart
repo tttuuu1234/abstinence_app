@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:abstinence_app/presentation/pages/enthusiasm_input/notifier.dart';
+
 import 'presentation/extension/widget_ref.dart';
 import 'presentation/pages/sign_in_input/notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,14 +39,23 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.handleAsyncValue<void>(
-      sigInProvider,
-      completeMessage: 'サインインに成功しました',
-      errorMessage: '認証に失敗しました。再度お試しください。',
-      complete: (context, _) async {
-        await NavigatorService.pushRemoveUntil(page: const HomePage());
-      },
-    );
+    ref
+      ..handleAsyncValue<void>(
+        signUpProvider,
+        completeMessage: '新規登録に成功しました。',
+        errorMessage: '新規登録に失敗しました。再度お試しください。',
+        complete: (_, __) async {
+          await NavigatorService.pushRemoveUntil(page: const HomePage());
+        },
+      )
+      ..handleAsyncValue<void>(
+        sigInProvider,
+        completeMessage: 'サインインに成功しました',
+        errorMessage: '認証に失敗しました。再度お試しください。',
+        complete: (_, __) async {
+          await NavigatorService.pushRemoveUntil(page: const HomePage());
+        },
+      );
 
     return MaterialApp(
       title: '禁！欲！',

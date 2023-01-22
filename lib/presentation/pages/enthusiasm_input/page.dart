@@ -74,9 +74,8 @@ class _EnthusiasmInputPageState extends ConsumerState<EnthusiasmInputPage> {
                                 onSuccess: (uid) async {
                                   await notifier.create(uid);
                                 },
-                                onFailuer: () {},
                               );
-                              await NavigatorService.push<HomePage>(
+                              await NavigatorService.pushRemoveUntil<HomePage>(
                                 page: const HomePage(),
                               );
                             }
