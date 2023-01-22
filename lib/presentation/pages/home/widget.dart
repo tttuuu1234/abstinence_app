@@ -14,6 +14,7 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ホーム'),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(

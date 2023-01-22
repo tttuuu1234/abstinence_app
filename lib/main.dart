@@ -41,7 +41,7 @@ class App extends ConsumerWidget {
       sigInProvider,
       completeMessage: 'サインインしました',
       complete: (context, _) async {
-        await NavigatorService.push(page: const HomePage());
+        await NavigatorService.pushRemoveUntil(page: const HomePage());
       },
     );
 

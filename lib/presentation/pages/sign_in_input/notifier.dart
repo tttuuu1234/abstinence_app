@@ -52,26 +52,21 @@ class SignInInputNotifier extends StateNotifier<SignInInputState> {
     );
   }
 
-  Future<void> signIn({
-    required void Function() onSuccess,
-    required void Function() onFailuer,
-  }) async {
+  Future<void> signIn({required void Function() onSuccess}) async {
     final notifier = ref.read(sigInProvider.notifier);
     notifier.state = const AsyncValue.loading();
+    // guardでtry~catchを楽に行なってくれている
     notifier.state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(seconds: 2));
-
       final response = await firebaseAuthService.signIn(
         email: state.email,
         password: state.password,
       );
-
-      print('サインイン成功');
-      print(response);
       final currentUser = response.user;
       if (currentUser == null) {
         assert(currentUser != null, 'ユーザー情報を取得できませんでした。');
-        return;
+        await firebaseAuthService.signOut();
+        // handleAsyncValueのerrorの方で受け取ってくれる
+        throw Exception('エラーが発生しました。\n再度お試しください。');
       }
 
       // 認証情報の保持

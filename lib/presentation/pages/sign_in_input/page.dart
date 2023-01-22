@@ -4,7 +4,6 @@ import '../../components/input_text_form_field/widget.dart';
 import '../../components/primary_button/widget.dart';
 import '../../provider/user/notifier.dart';
 import '../../validator/validator.dart';
-import '../home/widget.dart';
 import 'notifier.dart';
 
 /// サインイン画面
@@ -92,12 +91,7 @@ class _SignInInputPageState extends ConsumerState<SignInInputPage> {
                             await notifier.signIn(
                               onSuccess: () async {
                                 await userNotifier.setMode();
-                                await Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
-                                ));
                               },
-                              onFailuer: () {},
                             );
                           }
                         : null,

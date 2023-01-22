@@ -5,7 +5,6 @@ import '../components/error_dialog/widget.dart';
 import '../components/loading_indicator/widget.dart';
 
 extension WidgetRefEx on WidgetRef {
-  /// AsyncValueを良い感じにハンドリングする
   void handleAsyncValue<T>(
     ProviderListenable<AsyncValue<T>> asyncValueProvider, {
     void Function(BuildContext context, T data)? complete,
@@ -41,10 +40,13 @@ extension WidgetRefEx on WidgetRef {
             },
             error: (e, s) async {
               loadingNotifier.hide();
-              // エラーが発生したらエラーダイアログを表示する
-              await showDialog<void>(
-                context: NavigatorService.navigatorKey.currentContext!,
-                builder: (context) => ErrorDialog(error: e),
+              // エラーが発生したらスナックバーを表示する
+              final messengerState =
+                  read(scaffoldMessengerKeyProvider).currentState;
+              messengerState?.showSnackBar(
+                SnackBar(
+                  content: Text(e.toString()),
+                ),
               );
             },
             loading: loadingNotifier.show,
